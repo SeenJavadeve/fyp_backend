@@ -75,7 +75,7 @@ const updateUser = asyncHandler(async (req, res) => {
     return res.status(403).json(new ApiResponse(null, "Cannot update deleted account"));
   }
 
-  const fields = { full_name, email, phone_number };
+  const fields = { full_name, email };
   for (const [key, value] of Object.entries(fields)) {
     if (!value) {
       return res.status(400).json(new ApiResponse(null, `${key} is required`));
@@ -178,7 +178,11 @@ const getCurrentUser = asyncHandler(async (req, res) => {
   }
 
   return res.status(200).json(
-    new ApiResponse(req?.user, "User fetched successfully")
+    new ApiResponse(
+      {
+        user: req?.user,
+        accessToken: req?.accessToken
+      }, "User fetched successfully")
   );
 });
 
@@ -219,28 +223,6 @@ const logoutUser = asyncHandler(async (req, res) => {
 });
 
 
-
-
-
-const restoreUser = asyncHandler(async (req, res) => {
-  const userId = req.user._id;
-  
-  const user = await User.findById(userId);
-  if (!user) {
-    return res.status(404).json(new ApiResponse(null, "User not found"));
-  }
-
-  if (user.is_deleted === "n") {
-    return res.status(400).json(new ApiResponse(null, "User is already active"));
-  }
-
-  user.is_deleted = "n";
-  await user.save();
-
-  return res
-    .status(200)
-    .json(new ApiResponse(null, "Account restored successfully"));
-});
 
 
 export {

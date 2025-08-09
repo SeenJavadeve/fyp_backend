@@ -10,7 +10,6 @@
     "build": "npm install",
     "dev": "node --env-file=.env --watch src/index.js"
   },
-
   "keywords": [
     "backend",
     "express",
@@ -20,10 +19,11 @@
     "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
+    "csv-parse": "^6.1.0",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.13.2"
-  },
-  "devDependencies": {
+    "mongoose": "^8.13.2",
+    "multer": "^2.0.2",
+    "xlsx": "^0.18.5"
   }
 }
